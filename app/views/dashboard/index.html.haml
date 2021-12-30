@@ -1,0 +1,23 @@
+.row
+  - @forecasts.each do |forecast|
+    - details = forecast.forecast_details.last
+    .col-3.forecast.text-center
+      %h2.forecast--date
+        = forecast.date.to_s(:forecast)
+      %h1.forecast--icon
+        %i.bi(class="bi-#{forecast_icon(forecast)}")      
+      .forecast--temp.d-flex.flex-column.justify-content-center
+        %span
+          %i.bi.bi-thermometer-high
+          = details.high_temp
+        %span
+          %i.bi.bi-thermometer-low
+          = details.low_temp
+      .forecast--condition
+        = forecast.condition
+      .forecast--details
+        = forecast.forecast_details.last.details
+
+- if @joke
+  .row
+    %h2.p-4.text-center=@joke
