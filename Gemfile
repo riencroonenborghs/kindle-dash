@@ -4,8 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.2'
 
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'daemons'
-gem 'delayed_job_active_record'
 gem 'dotenv-rails'
 gem 'haml'
 gem 'httparty'

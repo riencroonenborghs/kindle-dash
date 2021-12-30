@@ -33,7 +33,7 @@ class CreateForecastsService < AppService
         next if existing_forecasts_by_date[date]
 
         forecast = build_forecast(date, metservice_forecast)
-        build_forecast_details(forecast, metservice_forecast)
+        forecast = build_forecast_details(forecast, metservice_forecast)
         ret << forecast
       end
     end

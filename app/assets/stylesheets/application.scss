@@ -20,26 +20,44 @@
 
 .forecast {
   padding: 32px;
+  height: calc(100vh / 4 * 3);
 
   &--date {
-    padding-bottom: 20px;
-  }
-
-  &--icon {
     padding-top: 20px;
-    font-size: 5rem;
-    padding-right: 16px;
+    padding-bottom: 20px;
     border-top: 1px solid lightgrey;
   }
 
-  &--temp {
-    font-size: 1.5rem;
-    padding-bottom: 20px;
+  &--icon {
+    // padding-top: 20px;
+    font-size: 5rem;
+    // padding-right: 16px;
+    // border-top: 1px solid lightgrey;
+  }
+
+  &--high-temp, &--low-temp {
+    font-size: 2rem;
+  }
+
+  &--sun-rise-set {
+    span {
+      padding: 5px;
+    }
     border-bottom: 1px solid lightgrey;
+    padding-bottom: 20px;
+  }
+
+  &--bottom {
+    padding-top: 20px;
   }
 
   &--condition {
     padding-top: 20px;
     font-size: 0.7rem;
+  }
+
+  &--details {
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 20px;
   }
 }

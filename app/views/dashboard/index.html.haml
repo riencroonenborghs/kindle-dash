@@ -1,22 +1,50 @@
 .row
   - @forecasts.each do |forecast|
-    - details = forecast.forecast_details.last
-    .col-3.forecast.text-center
-      %h2.forecast--date
-        = forecast.date.to_s(:forecast)
-      %h1.forecast--icon
-        %i.bi(class="bi-#{forecast_icon(forecast)}")      
-      .forecast--temp.d-flex.flex-column.justify-content-center
-        %span
+    - details = forecast.details.last
+    .forecast.text-center.d-flex.flex-column.justify-content-between(class="col-#{12 / @forecasts.count}")
+      .forecast--top
+        %h2.forecast--date
+          = forecast.date.to_s(:forecast)
+        %h1.forecast--icon
+          %i.bi(class="bi-#{forecast_icon(forecast)}")
+        .forecast--condition
+          = forecast.condition
+        .forecast--high-temp
           %i.bi.bi-thermometer-high
           = details.high_temp
-        %span
+          °C
+        .forecast--low-temp
           %i.bi.bi-thermometer-low
           = details.low_temp
-      .forecast--condition
-        = forecast.condition
-      .forecast--details
-        = forecast.forecast_details.last.details
+          °C
+        .forecast--sun-rise-set.d-flex.justify-content-center
+          %span
+            %i.bi.bi-sunrise
+            = details.sunrise.to_s(:sunrise)
+          %span
+            %i.bi.bi-sunset
+            = details.sunset.to_s(:sunrise)
+      .forecast--bottom
+        .forecast--details
+          = details.details
+      -# .forecast--temp.d-flex.justify-content-center
+      -#   %span
+      -#     %i.bi.bi-thermometer-high
+      -#     = details.high_temp
+      -#     °C
+      -#   %span
+      -#     %i.bi.bi-thermometer-low
+      -#     = details.low_temp
+      -#     °C
+      -# .forecast--sun-rise-set.d-flex.justify-content-center
+      -#   %span
+      -#     %i.bi.bi-sunrise
+      -#     = details.sunrise.to_s(:sunrise)
+      -#   %span
+      -#     %i.bi.bi-sunset
+      -#     = details.sunset.to_s(:sunrise)
+      
+      
 
 - if @joke
   .row
