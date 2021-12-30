@@ -18,9 +18,13 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
 
+.forecasts {
+  width: 658px;
+  height: 940px;
+}
+
 .forecast {
   padding: 32px;
-  height: calc(100vh / 4 * 3);
 
   &--date {
     padding-top: 20px;
@@ -29,10 +33,7 @@
   }
 
   &--icon {
-    // padding-top: 20px;
     font-size: 5rem;
-    // padding-right: 16px;
-    // border-top: 1px solid lightgrey;
   }
 
   &--high-temp, &--low-temp {
@@ -60,4 +61,8 @@
     border-bottom: 1px solid lightgrey;
     padding-bottom: 20px;
   }
+}
+
+.joke {
+  padding-bottom: 20px;
 }
