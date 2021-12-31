@@ -30,6 +30,13 @@
     padding-top: 20px;
     padding-bottom: 20px;
     border-top: 1px solid lightgrey;
+    font-size: 1.8rem;
+  }
+
+  &--top {
+    height: 400px;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 20px;
   }
 
   &--icon {
@@ -43,9 +50,7 @@
   &--sun-rise-set {
     span {
       padding: 5px;
-    }
-    border-bottom: 1px solid lightgrey;
-    padding-bottom: 20px;
+    }    
   }
 
   &--bottom {
