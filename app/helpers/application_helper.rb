@@ -13,6 +13,8 @@ module ApplicationHelper
       "cloud-rain-fill"
     when "showers"
       "cloud-rain"
+    when "drizzle"
+      "cloud-drizzle"
     end
   end
 end

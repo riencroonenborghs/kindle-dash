@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd /home/rien/websites/rails/kindle-dash/current && bash ./bin/take_screenshot
+cd /home/rien/websites/rails/kindle-dash/current && bash ./bin/take_screenshot && convert public/screenshot.png -colorspace Gray public/screenshot.png
