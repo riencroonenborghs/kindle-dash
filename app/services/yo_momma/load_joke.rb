@@ -1,27 +1,17 @@
 module YoMomma
-  class LoadJoke < AppService
-    attr_reader :joke
-
-    def call
-      load_joke
-      return unless success?
-      
-      parse_joke
-    end
-
+  class LoadJoke < ::LoadJoke
     private
 
-    attr_reader :data
+    def url
+      ENV["YO_MOMMA_API_URL"]
+    end
 
-    def load_joke
-      @data = HTTParty.get(ENV["YO_MOMMA_API_URL"])
-      errors.add(:base, "no data") unless data
-    rescue StandardError => e
-      errors.add(:base, e.message)
+    def headers
+      {}
     end
 
     def parse_joke
-      json_data = JSON.parse(data.body)&.deep_symbolize_keys!
+      json_data = JSON.parse(joke)&.deep_symbolize_keys!
       errors.add(:base, "no JSON data") and return unless json_data
       
       @joke = json_data[:joke]

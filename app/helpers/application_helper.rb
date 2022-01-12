@@ -19,4 +19,9 @@ module ApplicationHelper
       "wind"
     end
   end
+
+  def scrub_character(joke)
+    joke = joke.gsub(/\\/, "|").gsub("\"","'").gsub("|n","").gsub("\n"," ")
+    joke.unpack("U*").map{|c|c.chr}.join # UTF-8 convert
+  end
 end

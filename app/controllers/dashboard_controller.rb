@@ -15,7 +15,14 @@ class DashboardController < ApplicationController
   end
 
   def set_joke
-    rand(0..1) % 2 == 0 ? set_yo_momma_joke : set_icanhazdadjoke_joke
+    case rand(0..3)
+    when 0
+      set_yo_momma_joke
+    when 1
+      set_icanhazdadjoke_joke
+    else
+      set_fortunes_joke
+    end
   end
 
   def set_yo_momma_joke
@@ -25,6 +32,11 @@ class DashboardController < ApplicationController
 
   def set_icanhazdadjoke_joke
     service = Icanhazdadjoke::LoadJoke.call
+    @joke = service.failure? ? nil : service.joke
+  end
+
+  def set_fortunes_joke
+    service = Fortunes::LoadJoke.call
     @joke = service.failure? ? nil : service.joke
   end
 end
