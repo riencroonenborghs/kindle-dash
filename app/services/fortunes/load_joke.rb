@@ -11,7 +11,7 @@ module Fortunes
     attr_reader :data
 
     def load_joke
-      @joke = system("#{ENV['FORTUNE_PATH']} -s") # short
+      @joke = `#{ENV["FORTUNE_PATH"]} -s` # short
       errors.add(:base, "no data") unless joke
     rescue StandardError => e
       errors.add(:base, e.message)

@@ -21,6 +21,7 @@ module ApplicationHelper
   end
 
   def scrub_character(joke)
+    return joke unless joke
     joke = joke.gsub(/\\/, "|").gsub("\"","'").gsub("|n","").gsub("\n"," ")
     joke.unpack("U*").map{|c|c.chr}.join # UTF-8 convert
   end
