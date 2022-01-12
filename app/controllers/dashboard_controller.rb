@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
   def index
     set_forecasts
     set_joke
+    pp @joke
   end
 
   private
@@ -14,7 +15,16 @@ class DashboardController < ApplicationController
   end
 
   def set_joke
+    rand(0..1) % 2 == 0 ? set_yo_momma_joke : set_icanhazdadjoke_joke
+  end
+
+  def set_yo_momma_joke
     service = YoMomma::LoadJoke.call
+    @joke = service.failure? ? nil : service.joke
+  end
+
+  def set_icanhazdadjoke_joke
+    service = Icanhazdadjoke::LoadJoke.call
     @joke = service.failure? ? nil : service.joke
   end
 end
