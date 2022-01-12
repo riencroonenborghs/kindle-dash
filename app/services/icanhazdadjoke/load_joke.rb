@@ -25,7 +25,7 @@ module Icanhazdadjoke
     end
 
     def parse_joke
-      @joke = joke.gsub(/[\n\r]/, " ")
+      @joke = joke.gsub(/[\n\r]/, " ").unpack("U*").map{|c|c.chr}.join
     end
   end
 end
