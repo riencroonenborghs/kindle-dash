@@ -17,6 +17,8 @@ module ApplicationHelper
       "cloud-drizzle"
     when "windy"
       "wind"
+    when "wind-rain"
+      "cloud-drizzle"
     end
   end
 
