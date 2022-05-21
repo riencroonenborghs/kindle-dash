@@ -1,35 +1,85 @@
-.forecasts.d-flex.flex-column.justify-content-between
-  .row
+.d-flex.flex-column.justify-content-between(style="height: calc(100vh);")
+  .d-flex.flex-column.justify-content-between
     - @forecasts.each do |forecast|
-      - details = forecast.details.last
-      .forecast.text-center.d-flex.flex-column.justify-content-between(class="col-#{12 / @forecasts.count}")
-        .forecast--top
-          %h2.forecast--date
+      .d-flex.flex-row(style="height: calc((100vh - 100px) / 3);")
+        .main-view.p-4.text-center(style="min-width: 200px;")
+          .display-1
+            = forecast.date.to_s(:day)
+          .fs-6
             = forecast.date.to_s(:forecast)
-          %h1.forecast--icon
-            %i.bi(class="bi-#{forecast_icon(forecast)}")
-          .forecast--condition
-            = forecast.condition
-          .forecast--high-temp
-            %i.bi.bi-thermometer-high
-            = details.high_temp
-            °C
-          .forecast--low-temp
-            %i.bi.bi-thermometer-low
-            = details.low_temp
-            °C
-          .forecast--sun-rise-set.d-flex.justify-content-center
-            %span
+          .d-flex.flex-column
+            %div(style="font-size: 4rem;")
+              %i.bi(class="bi-#{forecast_icon(forecast)}")
+            .d-flex.flex-row.justify-content-center
+              - if forecast.breakdown
+                %i.bi.pe-1(class="bi-#{breakdown_icon(forecast.breakdown.morning)}")
+                %i.bi.pe-1(class="bi-#{breakdown_icon(forecast.breakdown.afternoon)}")
+                %i.bi.pe-1(class="bi-#{breakdown_icon(forecast.breakdown.evening)}")
+                %i.bi(class="bi-#{breakdown_icon(forecast.breakdown.overnight)}")
+          - if @debug
+            %small
+              = forecast.condition
+        .temperatures.d-flex.flex-column.justify-content-center
+          .d-flex.flex-row.align-center
+            %div(style="font-size: 2rem;")
+              %i.bi.bi-thermometer-high
+            .d-flex.flex-column.justify-content-center.ps-2
+              = forecast.detail.high_temp
+              °C
+          .d-flex.flex-row.align-center
+            %div(style="font-size: 2rem;")
+              %i.bi.bi-thermometer-low
+            .d-flex.flex-column.justify-content-center.ps-2
+              = forecast.detail.low_temp
+              °C
+          .d-flex.flex-row.align-center
+            %div(style="font-size: 2rem;")
               %i.bi.bi-sunrise
-              = details.sunrise.to_s(:sunrise)
-            %span
+            .d-flex.flex-column.justify-content-center.ps-2
+              = forecast.detail.sunrise.to_s(:sunrise)
+          .d-flex.flex-row.align-center
+            %div(style="font-size: 2rem;")
               %i.bi.bi-sunset
-              = details.sunset.to_s(:sunrise)
-        .forecast--bottom
-          .forecast--details
-            = details.details
+            .d-flex.flex-column.justify-content-center.ps-2
+              = forecast.detail.sunset.to_s(:sunrise)
+        .details.p-4.d-flex.flex-column.justify-content-center
+          = forecast.detail.details
+  .text-center.details.p-4.d-flex.flex-column.justify-content-center(style="height: 100px")
+    %small=scrub_character(@joke)
 
-  - if @joke
-    .row.joke
-      %h5.p-4.text-center
-        =scrub_character(@joke)
+
+  -# .forecasts.d-flex.flex-column.justify-content-between
+  -#   .row
+  -#     - @forecasts.each do |forecast|
+  -#       - details = forecast.details.last
+  -#       .forecast.text-center.d-flex.flex-column.justify-content-between(class="col-#{12 / @forecasts.count}")
+  -#         .forecast--top
+  -#           %h2.forecast--date
+  -#             = forecast.date.to_s(:forecast)
+  -#           %h1.forecast--icon
+  -#             %i.bi(class="bi-#{forecast_icon(forecast)}")
+  -#           .forecast--condition
+  -#             = forecast.condition
+  -#           .forecast--high-temp
+  -#             %i.bi.bi-thermometer-high
+  -#             = details.high_temp
+  -#             °C
+  -#           .forecast--low-temp
+  -#             %i.bi.bi-thermometer-low
+  -#             = details.low_temp
+  -#             °C
+  -#           .forecast--sun-rise-set.d-flex.justify-content-center
+  -#             %span
+  -#               %i.bi.bi-sunrise
+  -#               = details.sunrise.to_s(:sunrise)
+  -#             %span
+  -#               %i.bi.bi-sunset
+  -#               = details.sunset.to_s(:sunrise)
+  -#         .forecast--bottom
+  -#           .forecast--details
+  -#             = details.details
+
+  -#   - if @joke
+  -#     .row.joke
+  -#       %h5.p-4.text-center
+  -#         =scrub_character(@joke)

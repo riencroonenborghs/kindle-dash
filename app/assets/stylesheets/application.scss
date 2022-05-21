@@ -27,14 +27,14 @@
   padding: 32px;
 
   &--date {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-top: 1px solid lightgrey;
+    // padding-top: 20px;
+    // padding-bottom: 20px;
+    // border-top: 1px solid lightgrey;
     font-size: 1.6rem;
   }
 
   &--top {
-    height: 400px;
+    height: 350px;
     border-bottom: 1px solid lightgrey;
     padding-bottom: 20px;
   }
@@ -44,7 +44,7 @@
   }
 
   &--high-temp, &--low-temp {
-    font-size: 2rem;
+    font-size: 1.2rem;
   }
 
   &--sun-rise-set {

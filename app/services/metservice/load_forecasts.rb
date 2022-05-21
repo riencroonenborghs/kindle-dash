@@ -1,5 +1,6 @@
 module Metservice
-  class Forecast < Struct.new(:date, :issued_at, :condition, :low_temp, :high_temp, :details, keyword_init: true); end
+  class Forecast < Struct.new(:date, :issued_at, :condition, :low_temp, :high_temp, :breakdown, :detail, keyword_init: true); end
+  class Breakdown < Struct.new(:morning, :afternoon, :evening, :overnight, keyword_init: true); end
   class Detail < Struct.new(:low_temp, :high_temp, :sunrise, :sunset, :details, keyword_init: true); end
 
   class LoadForecasts < AppService
@@ -55,20 +56,34 @@ module Metservice
         condition: day[:condition],
         high_temp: day[:highTemp],
         low_temp: day[:lowTemp],
-        details: build_details(day)
+        breakdown: build_breakdown(day),
+        detail: build_detail(day)
+      )
+    end
+
+    def build_breakdown(day)
+      breakdown = day[:breakdown]
+      return nil unless breakdown
+
+      Breakdown.new(
+        morning: breakdown.dig(:morning, :condition),
+        afternoon: breakdown.dig(:afternoon, :condition),
+        evening: breakdown.dig(:evening, :condition),
+        overnight: breakdown.dig(:overnight, :condition)
       )
     end
   
-    def build_details(day)
-      day[:forecasts].map do |detail|
-        Detail.new(
-          high_temp: detail[:highTemp],
-          low_temp: detail[:lowTemp],
-          sunrise: DateTime.parse(detail[:sunrise]),
-          sunset: DateTime.parse(detail[:sunset]),
-          details: detail[:statement]
-        )
-      end
+    def build_detail(day)
+      detail = day[:forecasts].last
+      return nil unless detail
+
+      Detail.new(
+        high_temp: detail[:highTemp],
+        low_temp: detail[:lowTemp],
+        sunrise: DateTime.parse(detail[:sunrise]),
+        sunset: DateTime.parse(detail[:sunset]),
+        details: detail[:statement]
+      )
     end
   end
 end

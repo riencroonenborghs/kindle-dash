@@ -3,8 +3,8 @@ class DashboardController < ApplicationController
 
   def index
     set_forecasts
-    set_joke
-    pp @joke
+    set_icanhazdadjoke_joke
+    @debug = params[:debug]
   end
 
   private
