@@ -1,7 +1,7 @@
-.d-flex.flex-column.justify-content-between(style="height: calc(100vh);")
+.forecasts.d-flex.flex-column.justify-content-between(style="height: 800px;")
   .d-flex.flex-column.justify-content-between
     - @forecasts.each do |forecast|
-      .d-flex.flex-row(style="height: calc((100vh - 100px) / 3);")
+      .d-flex.flex-row(style="height: calc(700px / 3);")
         .main-view.p-4.text-center(style="min-width: 200px;")
           .display-1
             = forecast.date.to_s(:day)
