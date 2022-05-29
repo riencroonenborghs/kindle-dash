@@ -1,85 +1,100 @@
-.forecasts.d-flex.flex-column.justify-content-between(style="height: 800px;")
-  .d-flex.flex-column.justify-content-between
-    - @forecasts.each do |forecast|
-      .d-flex.flex-row(style="height: calc(700px / 3);")
-        .main-view.p-4.text-center(style="min-width: 200px;")
-          .display-1
-            = forecast.date.to_s(:day)
-          .fs-6
-            = forecast.date.to_s(:forecast)
-          .d-flex.flex-column
-            %div(style="font-size: 4rem;")
-              %i.bi(class="bi-#{forecast_icon(forecast)}")
-            .d-flex.flex-row.justify-content-center
-              - if forecast.breakdown
-                %i.bi.pe-1(class="bi-#{breakdown_icon(forecast.breakdown.morning)}")
-                %i.bi.pe-1(class="bi-#{breakdown_icon(forecast.breakdown.afternoon)}")
-                %i.bi.pe-1(class="bi-#{breakdown_icon(forecast.breakdown.evening)}")
-                %i.bi(class="bi-#{breakdown_icon(forecast.breakdown.overnight)}")
+.forecasts.d-flex.flex-column(style="height: 800px;")
+  .today.d-flex.flex-column(style="padding-top: 25px; padding-bottom: 25px;")
+    - today = @forecasts.shift
+    .d-flex.flex-row.align-items-center.justify-content-center
+      .date-temperatures-sun.d-flex.flex-column.align-items-center.pe-2
+        .day(style="font-size: 5rem;")
+          = today.date.to_s(:day)
+        .dd-mm.pb-4(style="font-size: 1rem;")
+          = today.date.to_s(:forecast)
           - if @debug
-            %small
-              = forecast.condition
-        .temperatures.d-flex.flex-column.justify-content-center
-          .d-flex.flex-row.align-center
-            %div(style="font-size: 2rem;")
-              %i.bi.bi-thermometer-high
-            .d-flex.flex-column.justify-content-center.ps-2
-              = forecast.detail.high_temp
-              °C
-          .d-flex.flex-row.align-center
-            %div(style="font-size: 2rem;")
-              %i.bi.bi-thermometer-low
-            .d-flex.flex-column.justify-content-center.ps-2
-              = forecast.detail.low_temp
-              °C
-          .d-flex.flex-row.align-center
-            %div(style="font-size: 2rem;")
-              %i.bi.bi-sunrise
-            .d-flex.flex-column.justify-content-center.ps-2
-              = forecast.detail.sunrise.to_s(:sunrise)
-          .d-flex.flex-row.align-center
-            %div(style="font-size: 2rem;")
-              %i.bi.bi-sunset
-            .d-flex.flex-column.justify-content-center.ps-2
-              = forecast.detail.sunset.to_s(:sunrise)
-        .details.p-4.d-flex.flex-column.justify-content-center
-          = forecast.detail.details
-  .text-center.details.p-4.d-flex.flex-column.justify-content-center(style="height: 100px")
-    %small=scrub_character(@joke)
+            = today.condition
+        .temperatures-sun.d-flex.flex-column
+          .temperatures.d-flex.flex-row
+            .d-flex.flex-row.align-center.pe-2
+              %div(style="font-size: 2rem;")
+                %i.bi.bi-thermometer-high
+              .d-flex.flex-column.justify-content-center.ps-2
+                = today.detail.high_temp
+                °C
+            .d-flex.flex-row.align-center
+              %div(style="font-size: 2rem;")
+                %i.bi.bi-thermometer-low
+              .d-flex.flex-column.justify-content-center.ps-2
+                = today.detail.low_temp
+                °C
+          .sun.d-flex.flex-row
+            .d-flex.flex-row.align-center.pe-2
+              %div(style="font-size: 2rem;")
+                %i.bi.bi-sunrise
+              .d-flex.flex-column.justify-content-center.ps-2
+                = today.detail.sunrise.to_s(:sunrise)
+            .d-flex.flex-row.align-center
+              %div(style="font-size: 2rem;")
+                %i.bi.bi-sunset
+              .d-flex.flex-column.justify-content-center.ps-2
+                = today.detail.sunset.to_s(:sunrise)
+      .icons.d-flex.flex-row.ps-4
+        .main(style="font-size: 12rem;")
+          %i.bi(class="bi-#{forecast_icon(today)}")
+        - if today.breakdown
+          .breakdown.d-flex.flex-column.justify-content-center.ps-4
+            .d-flex.flex-row.align-center
+              %i.bi.pe-1(class="bi-#{breakdown_icon(today.breakdown.morning)}")
+              %div morning
+            .d-flex.flex-row.align-center
+              %i.bi.pe-1(class="bi-#{breakdown_icon(today.breakdown.afternoon)}")
+              %div afternoon
+            .d-flex.flex-row.align-center
+              %i.bi.pe-1(class="bi-#{breakdown_icon(today.breakdown.evening)}")
+              %div evening
+            .d-flex.flex-row.align-center
+              %i.bi.pe-1(class="bi-#{breakdown_icon(today.breakdown.overnight)}")
+              %div overnight
+    .d-flex.justify-content-center(style="font-size: 1.3rem")
+      = today.detail.details
 
-
-  -# .forecasts.d-flex.flex-column.justify-content-between
-  -#   .row
-  -#     - @forecasts.each do |forecast|
-  -#       - details = forecast.details.last
-  -#       .forecast.text-center.d-flex.flex-column.justify-content-between(class="col-#{12 / @forecasts.count}")
-  -#         .forecast--top
-  -#           %h2.forecast--date
-  -#             = forecast.date.to_s(:forecast)
-  -#           %h1.forecast--icon
-  -#             %i.bi(class="bi-#{forecast_icon(forecast)}")
-  -#           .forecast--condition
-  -#             = forecast.condition
-  -#           .forecast--high-temp
-  -#             %i.bi.bi-thermometer-high
-  -#             = details.high_temp
-  -#             °C
-  -#           .forecast--low-temp
-  -#             %i.bi.bi-thermometer-low
-  -#             = details.low_temp
-  -#             °C
-  -#           .forecast--sun-rise-set.d-flex.justify-content-center
-  -#             %span
-  -#               %i.bi.bi-sunrise
-  -#               = details.sunrise.to_s(:sunrise)
-  -#             %span
-  -#               %i.bi.bi-sunset
-  -#               = details.sunset.to_s(:sunrise)
-  -#         .forecast--bottom
-  -#           .forecast--details
-  -#             = details.details
-
-  -#   - if @joke
-  -#     .row.joke
-  -#       %h5.p-4.text-center
-  -#         =scrub_character(@joke)
+  .tomorrow-and-day-after.d-flex.flex-column(style="padding-top: 25px; padding-bottom: 35px;")
+    .d-flex.flex-row.justify-content-around
+      - @forecasts.each do |forecast|
+        .d-flex.flex-column.align-items-center.justify-content-center.p-2
+          .date-temperatures-sun.d-flex.flex-column.align-items-center.pb-4
+            .day(style="font-size: 3rem;")
+              = forecast.date.to_s(:day)
+            .dd-mm(style="font-size: 0.65rem;")
+              = forecast.date.to_s(:forecast)
+              - if @debug
+                = forecast.condition
+          .icon-temperatures-sun.d-flex.flex-row.justify-content-center.align-items-center
+            .icon.pe-4(style="font-size: 3rem;")
+              %i.bi(class="bi-#{forecast_icon(forecast)}")
+            .temperatures-sun.d-flex.flex-column
+              .temperatures.d-flex.flex-row
+                .d-flex.flex-row.align-center.pe-2
+                  %div(style="font-size: 0.95rem;")
+                    %i.bi.bi-thermometer-high
+                  .d-flex.flex-column.justify-content-center.ps-2
+                    = forecast.detail.high_temp
+                    °C
+                .d-flex.flex-row.align-center
+                  %div(style="font-size: 0.95rem;")
+                    %i.bi.bi-thermometer-low
+                  .d-flex.flex-column.justify-content-center.ps-2
+                    = forecast.detail.low_temp
+                    °C
+              .sun.d-flex.flex-row
+                .d-flex.flex-row.align-center.pe-2
+                  %div(style="font-size: 0.95rem;")
+                    %i.bi.bi-sunrise
+                  .d-flex.flex-column.justify-content-center.ps-2
+                    = forecast.detail.sunrise.to_s(:sunrise)
+                .d-flex.flex-row.align-center
+                  %div(style="font-size: 0.95rem;")
+                    %i.bi.bi-sunset
+                  .d-flex.flex-column.justify-content-center.ps-2
+                    = forecast.detail.sunset.to_s(:sunrise)
+          .d-flex.justify-content-center.text-center(style="font-size: 0.75rem")
+            = forecast.detail.details
+  .text-center.details.p-4.d-flex.flex-column.justify-content-center
+    %small=scrub_character(@joke)  
+    
