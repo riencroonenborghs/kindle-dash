@@ -1,7 +1,9 @@
-class LoadJoke < AppService
+class LoadJoke
+  include Base
+
   attr_reader :joke
 
-  def call
+  def perform
     load_joke
     return unless success?
     

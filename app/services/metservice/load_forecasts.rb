@@ -3,10 +3,12 @@ module Metservice
   class Breakdown < Struct.new(:morning, :afternoon, :evening, :overnight, keyword_init: true); end
   class Detail < Struct.new(:low_temp, :high_temp, :sunrise, :sunset, :details, keyword_init: true); end
 
-  class LoadForecasts < AppService
+  class LoadForecasts
+    include Base
+
     attr_reader :forecasts
 
-    def call
+    def perform
       load_data
       return unless success?
 

@@ -1,5 +1,7 @@
-class CreateForecastsService < AppService
-  def call
+class CreateForecastsService
+  include Base
+
+  def perform
     load_metservice_forecasts
     return unless success?
 
@@ -12,7 +14,7 @@ class CreateForecastsService < AppService
   attr_reader :metservice_forecasts, :forecasts
 
   def load_metservice_forecasts
-    service = LoadMetserviceForecastsService.call
+    service = LoadMetserviceForecastsService.perform
     if service.failure?
       errors.merge!(service.errors)
       return
