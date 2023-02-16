@@ -12,7 +12,7 @@ class GenerateScreenshotJob
   end
 
   def command
-    "#{ENV.fetch('WKHTMLTOIMAGE')} #{options} \"#{ENV.fetch('URL')}\" \"#{output}\""
+    "#{ENV.fetch('WKHTMLTOIMAGE')} #{options} \"#{ENV.fetch('URL')}\" \"#{output}\"; convert \"#{output}\" -colorspace Gray \"#{output}\""
   end
 
   def options
