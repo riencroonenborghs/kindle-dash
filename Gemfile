@@ -12,6 +12,8 @@ gem 'mina'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 gem 'sass-rails', '>= 6'
+gem 'sidekiq'
+gem 'sidekiq-cron'
 gem 'sqlite3', '~> 1.4'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'webpacker', '~> 5.0'

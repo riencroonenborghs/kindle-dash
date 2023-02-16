@@ -1,0 +1,3 @@
+generate_screenshot_job:
+  cron: "*/5 * * * *"
+  class: "GenerateScreenshotJob"
